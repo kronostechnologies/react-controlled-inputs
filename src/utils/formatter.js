@@ -1,21 +1,18 @@
 import _ from 'lodash';
 import { EN, FR } from './constants';
 
-class Formatter {
+class formatter {
     constructor(lang = EN) {
         this.lang = lang;
     }
 
-    _frenchSugarCoat(coated_value) {
-        return coated_value
-            .replace('-', '')
-            .replace('.', ',');
-    }
+    _frenchReplace = value => value.replace('-', '').replace('.', ',');
+    _englishReplace = value => value.replace('-', '');
+    _isPositive = value => parseFloat((value + '').replace(',', '.')) >= 0;
 
-    _englishSugarCoat(coated_value) {
-        return coated_value
-            .replace('-', '');
-    }
+    noFormat = value => value;
+
+    parseAmount = amount => parseFloat(parseFloat(amount).toFixed(2));
 
     formatMoney(value, fixed_decimals = true) {
         if(value === '' || _.isNil(value)) {
@@ -27,27 +24,22 @@ class Formatter {
             _value = _value.toFixed(2);
         }
 
+        let coated_value;
         switch(this.lang) {
             case FR:
-            
+                coated_value = this._frenchReplace(this.addThousandSeparator(_value, '\u00A0'));
+                if(this._isPositive(_value)) {
+                    return `${coated_value}\u00A0$`;
+                }
+                return `(${coated_value})\u00A0$`;
             case EN:
             default:
+                coated_value = this._englishReplace(this.addThousandSeparator(_value, ','));
+                if(this._isPositive(_value)) {
+                    return `$${coated_value}`;
+                }
+                return `$(${coated_value})`;
         }
-
-        let coated_value;
-        if(this.lang === FR) {
-            coated_value = this._frenchSugarCoat(this.addThousandSeparator(_value, '\u00A0'));
-            if(parseFloat((_value + '').replace(',', '.')) >= 0) {
-                return `${coated_value}\u00A0$`;
-            }
-            return `(${coated_value})\u00A0$`;
-        }
-
-        coated_value = this._englishSugarCoat(this.addThousandSeparator(_value, ','));
-        if(parseFloat((_value + '').replace(',', '.')) >= 0) {
-            return `$${coated_value}`;
-        }
-        return `$(${coated_value})`;
     }
 
     formatPercent(value, fixed_decimals = true) {
@@ -59,8 +51,8 @@ class Formatter {
         if(_value % 1 !== 0 && fixed_decimals && typeof _value === 'number') {
             _value = _value.toFixed(2);
         }
-        const coated_value = this._frenchSugarCoat(this.addThousandSeparator(_value, ' '));
-        if(parseFloat((_value + '').replace(',', '.')) >= 0) {
+        const coated_value = this._frenchReplace(this.addThousandSeparator(_value, ' '));
+        if(this._isPositive(_value)) {
             return `${coated_value} %`;
         }
         return `(${coated_value}) %`;
@@ -86,10 +78,6 @@ class Formatter {
         }
         return value;
     }
-
-    parseAmount(amount) {
-        return parseFloat(parseFloat(amount).toFixed(2));
-    }
 }
 
-export default Formatter;
+export default formatter;

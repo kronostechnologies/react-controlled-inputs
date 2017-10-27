@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import formatter from '../utils/formatter';
 import {
     EN, FR
 } from '../utils/constants';
@@ -20,14 +20,16 @@ class Input extends Component {
     }
 
     static propTypes = {
-        type: PropTypes.string
+        type: PropTypes.string,
+        lang: PropTypes.oneOf([EN, FR])
     }
 
     static defaultProps = {
-        type: 'text'
+        type: 'text',
+        lang: EN
     }
 
-    format = (value) => value;
+    format = formatter.noFormat;
 
     getValueToDisplay = () => (this.state.focused
     ? this.state.value
@@ -39,7 +41,7 @@ class Input extends Component {
         });
     }
 
-    onFocus(e) {
+    onFocus() {
         this.setFocusedFlag(true);
         if(this.input &&
             this.input.setSelectionRange &&
@@ -52,7 +54,7 @@ class Input extends Component {
         }
     }
 
-    onBlur(e) {
+    onBlur() {
         this.setFocusedFlag(false);
     }
 

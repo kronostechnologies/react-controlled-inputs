@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start:www": "./www webpack",
-    "test": "NODE_ENV=test mocha --compilers js:babel-register --compilers jsx:babel-register --slow 100 --recursive ./tests/*"
+    "test": "mocha --compilers js:babel-register --compilers jsx:babel-register --slow 100 --recursive ./tests/*"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "jsdom-global": "^3.0.2",
     "mocha": "^3.0.2",
     "prop-types": "^15.6.0",
+    "proxyquire": "^1.8.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
     "react-test-renderer": "^16.0.0",

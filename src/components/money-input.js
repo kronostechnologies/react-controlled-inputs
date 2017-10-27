@@ -1,20 +1,11 @@
-import React from 'react';
 import Input from './input';
-
+import formatter from '../utils/formatter';
 import {
     EN, FR
 } from '../utils/constants';
 
 class MoneyInput extends Input {
-    format = (value) => {
-        switch(this.props.lang) {
-            case FR:
-                return value + ' $';
-            case EN:
-            default:
-                return '$' + value;
-        }
-    }
+    format = formatter.formatMoney;
 }
 
 export default MoneyInput;
