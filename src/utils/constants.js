@@ -1,0 +1,15 @@
+// Tests
+export const INVALID_NUMERIC_VALUE = 'invalid';
+export const VALID_TEXT_VALUE = 'This is a demo text';
+export const VALID_UNFORMATTED_NUMERIC_VALUE = 100;
+export const VALID_UNFORMATTED_NUMERIC_STRING = '100';
+export const VALID_UNFORMATTED_THOUSAND_NUMERIC_VALUE = 100000;
+export const VALID_UNFORMATTED_THOUSAND_NUMERIC_STRING = '100000';
+export const VALID_FR_FORMATTED_NUMERIC_VALUE = '100 $';
+export const VALID_EN_FORMATTED_NUMERIC_VALUE = '$100';
+export const VALID_FR_FORMATTED_THOUSAND_NUMERIC_VALUE = '100 000 $';
+export const VALID_EN_FORMATTED_THOUSAND_NUMERIC_VALUE = '$100,000';
+
+// utils
+export const FR = 'FR';
+export const EN = 'EN';
