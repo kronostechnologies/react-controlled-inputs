@@ -6,7 +6,11 @@ jsx inputs adapted for form applications. Currently handles locale formatting fo
 
 The inputs are set to behave more like excel cells do. When an input is focused, it will initially select the entire range.
 
-TODO: Still left to implement is the ability to add validations to any input.
+## TODOs
+* Implement the ability to add validations to any input.
+* Implement more UI knobs to play around with the inputs in the playground (`./www`)
+* Add visual buttons on the right side of a number input (to mimic the actual `input type="text"`)
+* Adapt the API and document the API to be more user-friendly (the API is still a wip)
 
 ## Supported locales
 
