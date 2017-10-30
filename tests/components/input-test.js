@@ -3,21 +3,21 @@ import chai, { expect } from 'chai';
 import 'jsdom-global/register';
 import { mount } from 'enzyme';
 import sinon from 'sinon';
-import { afterEach, before, beforeEach, describe, it } from 'mocha';
+import { afterEach, beforeEach, describe, it } from 'mocha';
 import chaiEnzyme from 'chai-enzyme';
 import JSDOM_G from 'jsdom-global';
 
 import {
     Input,
-    MoneyInput
+    CurrencyInput
 } from '../../src/index';
 
 import {
     EN, FR,
     VALID_UNFORMATTED_NUMERIC_VALUE,
     VALID_UNFORMATTED_NUMERIC_STRING, // Since we can't efficiently retrieve the input's value as an actual number
-    VALID_FR_FORMATTED_MONEY_VALUE,
-    VALID_EN_FORMATTED_MONEY_VALUE,
+    VALID_FR_FORMATTED_CURRENCY_VALUE,
+    VALID_EN_FORMATTED_CURRENCY_VALUE,
     VALID_TEXT_VALUE
 } from '../../src/utils/constants';
 
@@ -43,13 +43,23 @@ describe('Inputs ::', () => {
             txt_input = txt_wrappper.find('input').node;
         });
 
-        it('when focusing, should select the entire value', () => {
+        it('when focusing, should select the entire value', (done) => {
             txt_input.focus();
             txt_wrappper.find('input').prop('onFocus')();
             setTimeout(() => {
                 expect(txt_input.selectionStart).to.equal(0);
                 expect(txt_input.selectionEnd).to.equal(txt_input.value.length);
+                done();
             }, 0);
+        });
+
+        it('when typing, should call the onChange passed as props', () => {
+            const spy = sinon.spy();
+            txt_wrappper.setProps({ onChange: spy });
+            txt_wrappper.find('input').prop('onChange')({ target: { value: VALID_UNFORMATTED_NUMERIC_VALUE } });
+
+            expect(spy.callCount).to.be.equal(1);
+            expect(txt_wrappper.state('value')).to.be.equal(VALID_UNFORMATTED_NUMERIC_VALUE);
         });
     });
 
@@ -76,15 +86,11 @@ describe('Inputs ::', () => {
         });
     });
 
-    describe('Given a Money Input', () => {
+    describe('Given a Currency Input', () => {
         describe('(EN), ', () => {
             beforeEach(() => {
-                num_wrapper = mount(<MoneyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} lang={EN} onChange={dummyChange} />);
+                num_wrapper = mount(<CurrencyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} locale={EN} onChange={dummyChange} />);
                 num_input = num_wrapper.find('input').node;
-            });
-
-            it('when rendering, should call the appriopriate formatting function', () => {
-                const spy = sinon.spy(num_wrapper.);
             });
 
             it('when focused, should display the actual value', () => {
@@ -95,13 +101,13 @@ describe('Inputs ::', () => {
             });
 
             it('when not focused, should display the correctly formatted number', () => {
-                expect(num_input.value).to.equal(VALID_EN_FORMATTED_MONEY_VALUE);
+                expect(num_input.value).to.equal(VALID_EN_FORMATTED_CURRENCY_VALUE);
             });
         });
 
         describe('(FR), ', () => {
             beforeEach(() => {
-                num_wrapper = mount(<MoneyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} lang={FR} onChange={dummyChange} />);
+                num_wrapper = mount(<CurrencyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} locale={FR} onChange={dummyChange} />);
                 num_input = num_wrapper.find('input').node;
             });
 
@@ -114,7 +120,7 @@ describe('Inputs ::', () => {
             });
 
             it('when not focused, should display the correctly formatted number', () => {
-                expect(num_input.value).to.equal(VALID_FR_FORMATTED_MONEY_VALUE);
+                expect(num_input.value).to.equal(VALID_FR_FORMATTED_CURRENCY_VALUE);
             });
         });
     });

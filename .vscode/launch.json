@@ -9,6 +9,7 @@
             "request": "launch",
             "name": "Tests",
             "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "preLaunchTask": "npm: build",
             "args": [
                 "--compilers",
                 "js:babel-register",
@@ -20,7 +21,10 @@
                 "--recursive",
                 "${workspaceFolder}/tests/*/*.js"
             ],
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "sourceMaps": true,
+            "outFiles": ["${workspaceRoot}/dist/*.js"],
+            "smartStep":true
         }
     ]
 }

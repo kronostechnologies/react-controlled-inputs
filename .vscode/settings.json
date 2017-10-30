@@ -1,5 +1,6 @@
 {
     "editor.cursorStyle": "underline",
-    "editor.detectIndentation": false,
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": true,
     "files.eol": "\n"
 }

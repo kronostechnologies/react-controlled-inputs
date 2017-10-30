@@ -6,8 +6,11 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'react-input.js',
         library: 'ReactInput',
-        libraryTarget: 'umd'
+        libraryTarget: 'umd',
+        devtoolModuleFilenameTemplate: '[absolute-resource-path]',
+        devtoolFallbackModuleFilenameTemplate: '[absolute-resource-path]?[hash]'
     },
+    devtool: 'source-map',
     module: {
         loaders: [
             {

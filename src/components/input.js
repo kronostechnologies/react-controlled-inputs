@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import formatter from '../utils/formatter';
+import f from '../utils/formatter';
 import {
     EN, FR
 } from '../utils/constants';
@@ -15,21 +15,26 @@ class Input extends Component {
             failed_validations: []
         };
 
+        this.formatter = new f(props.locale);
+
+        this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
         this.onBlur = this.onBlur.bind(this);
     }
 
     static propTypes = {
         type: PropTypes.string,
-        lang: PropTypes.oneOf([EN, FR])
+        locale: PropTypes.oneOf([EN, FR])
     }
 
     static defaultProps = {
         type: 'text',
-        lang: EN
+        locale: EN
     }
 
-    format = formatter.noFormat;
+    format(value) {
+        return this.formatter.noFormat(value);
+    }
 
     getValueToDisplay = () => (this.state.focused
     ? this.state.value
@@ -39,6 +44,11 @@ class Input extends Component {
         this.setState({
             focused: bool
         });
+    }
+
+    onChange(e) {
+        this.setState({ value: e.target.value });
+        this.props.onChange(e);
     }
 
     onFocus() {
@@ -64,6 +74,7 @@ class Input extends Component {
                 <input
                     {...this.props}
                     value={this.getValueToDisplay()}
+                    onChange={this.onChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}
                     ref={(node) => {

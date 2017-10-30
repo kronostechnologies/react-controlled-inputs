@@ -2,19 +2,19 @@ import _ from 'lodash';
 import { EN, FR } from './constants';
 
 class formatter {
-    constructor(lang = EN) {
-        this.lang = lang;
+    constructor(locale = EN) {
+        this.locale = locale;
     }
 
-    _frenchReplace = value => value.replace('-', '').replace('.', ',');
-    _englishReplace = value => value.replace('-', '');
+    _frenchReplace = value => value.replace('-', '').replace(',', '\u00A0').replace('.', ',');
+    _englishReplace = value => value.replace('-', '').replace(' ', ',').replace('\u00A0', ',');
     _isPositive = value => parseFloat((value + '').replace(',', '.')) >= 0;
 
     noFormat = value => value;
 
     parseAmount = amount => parseFloat(parseFloat(amount).toFixed(2));
 
-    formatMoney(value, fixed_decimals = true) {
+    formatNumber(value, fixed_decimals = true) {
         if(value === '' || _.isNil(value)) {
             return '';
         }
@@ -24,18 +24,26 @@ class formatter {
             _value = _value.toFixed(2);
         }
 
-        let coated_value;
-        switch(this.lang) {
+        switch(this.locale) {
             case FR:
-                coated_value = this._frenchReplace(this.addThousandSeparator(_value, '\u00A0'));
-                if(this._isPositive(_value)) {
+                return this._frenchReplace(this.addThousandSeparator(_value, '\u00A0'));
+            case EN:
+            default:
+                return this._englishReplace(this.addThousandSeparator(_value, ','));
+        }
+    }
+
+    formatCurrency(value, fixed_decimals = true) {
+        const coated_value = this.formatNumber(value, fixed_decimals);
+        switch(this.locale) {
+            case FR:
+                if(this._isPositive(value)) {
                     return `${coated_value}\u00A0$`;
                 }
                 return `(${coated_value})\u00A0$`;
             case EN:
             default:
-                coated_value = this._englishReplace(this.addThousandSeparator(_value, ','));
-                if(this._isPositive(_value)) {
+                if(this._isPositive(value)) {
                     return `$${coated_value}`;
                 }
                 return `$(${coated_value})`;
@@ -80,4 +88,8 @@ class formatter {
     }
 }
 
+const frenchFormatter = new formatter(FR);
+const englishFormatter = new formatter(EN);
+
 export default formatter;
+export { frenchFormatter, englishFormatter };
