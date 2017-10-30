@@ -3,3 +3,7 @@ src
 CODE_OF_CONDUCT.md
 www
 tests
+.vscode
+.eslintrc
+webpack.config.js
+dist/*.map
