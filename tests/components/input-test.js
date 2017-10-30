@@ -61,6 +61,24 @@ describe('Inputs ::', () => {
             expect(spy.callCount).to.be.equal(1);
             expect(txt_wrappper.state('value')).to.be.equal(VALID_UNFORMATTED_NUMERIC_VALUE);
         });
+
+        it('when focusing, should call the onFocus passed as props if specified', () => {
+            const spy = sinon.spy();
+            txt_wrappper.setProps({ onFocus: spy });
+            txt_wrappper.find('input').prop('onFocus')();
+
+            expect(spy.callCount).to.be.equal(1);
+            expect(txt_wrappper.state('focused')).to.be.true;
+        });
+
+        it('when leaving the input, should call the onBlur passed as props if specified', () => {
+            const spy = sinon.spy();
+            txt_wrappper.setProps({ onBlur: spy });
+            txt_wrappper.find('input').prop('onBlur')();
+
+            expect(spy.callCount).to.be.equal(1);
+            expect(txt_wrappper.state('focused')).to.be.false;
+        });
     });
 
     describe('Given a regular Input', () => {

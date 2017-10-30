@@ -1,5 +1,5 @@
-# react-input
-jsx inputs adapted for form applications. Currently handles locale formatting for:
+# react-controlled-inputs
+Controlled react inputs with built-in formatting and auto-validations. Currently handles localized formatting for:
 * numbers
 * percentage
 * currency
@@ -11,6 +11,7 @@ The inputs are set to behave more like excel cells do. When an input is focused,
 * Implement more UI knobs to play around with the inputs in the playground (`./www`)
 * Add visual buttons on the right side of a number input (to mimic the actual `input type="text"`)
 * Adapt the API and document the API to be more user-friendly (the API is still a wip)
+* And more...
 
 ## Supported locales
 
@@ -26,7 +27,7 @@ Normal text input:
 ```js
 import { Input } from 'react-input';
 
-<Input value="100" locale="FR" />
+<Input value="myValue" locale="FR" />
 ```
 
 Currency input:

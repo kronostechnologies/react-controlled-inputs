@@ -51,21 +51,27 @@ class Input extends Component {
         this.props.onChange(e);
     }
 
-    onFocus() {
+    onFocus(e) {
         this.setFocusedFlag(true);
         if(this.input &&
             this.input.setSelectionRange &&
-            this.input.type !== 'number' // Chrome > 33 throws error accessing selection on number inputs
+            this.input.type !== 'number' // Chrome version > 33 throws error accessing selection on number inputs
         ) {
             const pos = ('' + this.input.value).length;
             setTimeout(() => {
                 this.input.setSelectionRange(0, pos);
             }, 0); // This will defer to the end of the event queue which is required for the blink engine (chromium).
         }
+        if(this.props.onFocus) {
+            this.props.onFocus(e);
+        }
     }
 
-    onBlur() {
+    onBlur(e) {
         this.setFocusedFlag(false);
+        if(this.props.onBlur) {
+            this.props.onBlur(e);
+        }
     }
 
     render() {

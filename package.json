@@ -1,8 +1,8 @@
 {
-  "name": "react-input",
+  "name": "react-controlled-inputs",
   "version": "1.0.0",
-  "description": "Self-validating react inputs",
-  "main": "dist/react-input.js.js",
+  "description": "Controlled react inputs with built-in formatting and validations",
+  "main": "dist/react-input.js",
   "scripts": {
     "build": "webpack",
     "test": "mocha --compilers js:babel-register --compilers jsx:babel-register --slow 100 --recursive ./tests/*"
@@ -16,7 +16,8 @@
     "auto-validating",
     "self-validating",
     "number input",
-    "input"
+    "input",
+    "controlled input"
   ],
   "author": "Alexandre Poirier",
   "license": "MIT",
