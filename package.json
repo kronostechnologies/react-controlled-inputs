@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-inputs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Controlled react inputs with built-in formatting and validations",
   "main": "dist/react-input.js",
   "scripts": {
