@@ -79,6 +79,20 @@ describe('Inputs ::', () => {
             expect(spy.callCount).to.be.equal(1);
             expect(txt_wrappper.state('focused')).to.be.false;
         });
+
+        it('container, should have the correct className and id', () => {
+            txt_wrappper.setProps({ className: 'testing', id: 'testing-id' });
+
+            expect(txt_wrappper.find('div').hasClass('react-input-container')).to.be.true;
+            expect(txt_wrappper.find('div')).prop('id').to.equal('testing-id-container');
+        });
+
+        it('should have the correct className and id', () => {
+            txt_wrappper.setProps({ className: 'testing', id: 'testing-id' });
+
+            expect(txt_wrappper.find('input').prop('className')).to.equal('testing');
+            expect(txt_wrappper.find('input').prop('id')).to.equal('testing-id');
+        });
     });
 
     describe('Given a regular Input', () => {

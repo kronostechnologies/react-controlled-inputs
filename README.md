@@ -24,27 +24,39 @@ If there is need for more, feel free to report an issue on the matter.
 
 ## Usage
 
-Any prop passed to the input will be forwarded to the actual stock HTML input so you can refer to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input for possible attributes.
+Any prop passed to the input will be forwarded to the actual input HTML element. You can refer to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input for possible attributes.
 
 Possible locale props: `["EN", "FR"]`
 
-Normal text input:
+**Normal text input:**
 ```js
 import { Input } from 'react-controlled-inputs';
 
-<Input value="myValue" locale="FR" onChange={myFunc()} />
+<Input value={myValue} locale="FR" onChange={myFunc} />
 ```
 
-Currency input:
+**Currency input:**
 ```js
 import { CurrencyInput } from 'react-controlled-inputs';
 
-<CurrencyInput value="100" locale="EN" onChange={myFunc()} />
+<CurrencyInput value={myValue} locale="EN" onChange={myFunc} />
 ```
 
-Percentage input:
+**Percentage input:**
 ```js
 import { PercentageInput } from 'react-controlled-inputs';
 
-<PercentageInput value="100" locale="FR" onChange={myFunc()} />
+<PercentageInput value={myValue} locale="FR" onChange={myFunc} />
 ```
+### Styling
+
+**input's container:**
+
+`id`: if passed to the Input, the container will have the same id with `-container` appended.
+
+`className`: `react-input-container`
+
+**Actual input:**
+
+Any `className` or `id` passed as prop is forwarded to the input HTML element.
+

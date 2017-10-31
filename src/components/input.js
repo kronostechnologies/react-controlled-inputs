@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import f from '../utils/formatter';
 import {
     EN, FR
@@ -74,11 +75,19 @@ class Input extends Component {
         }
     }
 
+    filterUnwantedProps() {
+        const props = _.assign({}, this.props);
+        delete props.locale;
+        delete props.validations;
+        return props;
+    }
+
     render() {
+        const inputProps = this.filterUnwantedProps();
         return (
-            <div>
+            <div className="react-input-container" id={this.props.id ? `${this.props.id}-container` : ''}>
                 <input
-                    {...this.props}
+                    {...inputProps}
                     value={this.getValueToDisplay()}
                     onChange={this.onChange}
                     onFocus={this.onFocus}
