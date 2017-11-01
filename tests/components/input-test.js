@@ -9,7 +9,9 @@ import JSDOM_G from 'jsdom-global';
 
 import {
     Input,
-    CurrencyInput
+    CurrencyInput,
+    NumberInput,
+    PercentageInput
 } from '../../src/index';
 
 import {
@@ -18,7 +20,11 @@ import {
     VALID_UNFORMATTED_NUMERIC_STRING, // Since we can't efficiently retrieve the input's value as an actual number
     VALID_FR_FORMATTED_CURRENCY_VALUE,
     VALID_EN_FORMATTED_CURRENCY_VALUE,
-    VALID_TEXT_VALUE
+    VALID_TEXT_VALUE,
+    INPUT_CLASSNAME,
+    CURRENCY_INPUT_CLASSNAME,
+    NUMBER_INPUT_CLASSNAME,
+    PERCENTAGE_INPUT_CLASSNAME
 } from '../../src/utils/constants';
 
 chai.use(chaiEnzyme());
@@ -90,8 +96,15 @@ describe('Inputs ::', () => {
         it('should have the correct className and id', () => {
             txt_wrappper.setProps({ className: 'testing', id: 'testing-id' });
 
-            expect(txt_wrappper.find('input').prop('className')).to.equal('testing');
+            expect(txt_wrappper.find('input').prop('className')).to.equal('testing ' + INPUT_CLASSNAME);
             expect(txt_wrappper.find('input').prop('id')).to.equal('testing-id');
+
+            txt_wrappper = mount(<CurrencyInput />);
+            expect(txt_wrappper.find('input').prop('className')).to.equal(CURRENCY_INPUT_CLASSNAME);
+            txt_wrappper = mount(<NumberInput />);
+            expect(txt_wrappper.find('input').prop('className')).to.equal(NUMBER_INPUT_CLASSNAME);
+            txt_wrappper = mount(<PercentageInput />);
+            expect(txt_wrappper.find('input').prop('className')).to.equal(PERCENTAGE_INPUT_CLASSNAME);
         });
     });
 

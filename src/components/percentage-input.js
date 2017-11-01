@@ -1,5 +1,6 @@
 import Input from './input';
 import f from '../utils/formatter';
+import { PERCENTAGE_INPUT_CLASSNAME } from '../utils/constants';
 
 class PercentageInput extends Input {
     constructor(props) {
@@ -10,6 +11,10 @@ class PercentageInput extends Input {
     format(value) {
         this.formatter.locale = this.props.locale;
         return this.formatter.formatPercent(value);
+    }
+
+    getInputClassName() {
+        return PERCENTAGE_INPUT_CLASSNAME;
     }
 }
 

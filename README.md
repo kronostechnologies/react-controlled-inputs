@@ -26,7 +26,7 @@ If there is need for more, feel free to report an issue on the matter.
 
 Any prop passed to the input will be forwarded to the actual input HTML element. You can refer to https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input for possible attributes.
 
-Possible locale props: `["EN", "FR"]`
+Possible locale props: `["EN", "FR"]` (case insensitive)
 
 **Normal text input:**
 ```js
@@ -56,7 +56,7 @@ import { PercentageInput } from 'react-controlled-inputs';
 
 `className`: `react-input-container`
 
-**Actual input:**
+**actual input:**
 
-Any `className` or `id` passed as prop is forwarded to the input HTML element.
-
+Any `className` or `id` passed as prop is forwarded to the input HTML element. In addition, the input will have the type of input as class in lower case separated by `-`.
+* ex: for a `CurrencyInput` the class `currency-input` will be added to the input element

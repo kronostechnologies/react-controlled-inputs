@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import f from '../utils/formatter';
 import {
-    EN, FR
+    EN, FR,
+    INPUT_CLASSNAME
 } from '../utils/constants';
 
 class Input extends Component {
@@ -16,7 +17,7 @@ class Input extends Component {
             failed_validations: []
         };
 
-        this.formatter = new f(props.locale);
+        this.formatter = new f(props.locale.toUpperCase());
 
         this.onChange = this.onChange.bind(this);
         this.onFocus = this.onFocus.bind(this);
@@ -79,15 +80,22 @@ class Input extends Component {
         const props = _.assign({}, this.props);
         delete props.locale;
         delete props.validations;
+        delete props.className;
         return props;
     }
 
+    getInputClassName() {
+        return INPUT_CLASSNAME;
+    }
+
     render() {
-        const inputProps = this.filterUnwantedProps();
+        const props = this.filterUnwantedProps();
+        const class_name_separator = this.props.className ? ' ' : '';
         return (
             <div className="react-input-container" id={this.props.id ? `${this.props.id}-container` : ''}>
                 <input
-                    {...inputProps}
+                    {...props}
+                    className={_.join([this.props.className, this.getInputClassName()], class_name_separator)}
                     value={this.getValueToDisplay()}
                     onChange={this.onChange}
                     onFocus={this.onFocus}

@@ -25,3 +25,7 @@ export const VALID_EN_FORMATTED_THOUSAND_DECIMAL_VALUE = '100,000.42';
 // utils
 export const FR = 'FR';
 export const EN = 'EN';
+export const NUMBER_INPUT_CLASSNAME = 'number-input';
+export const PERCENTAGE_INPUT_CLASSNAME = 'percentage-input';
+export const CURRENCY_INPUT_CLASSNAME = 'currency-input';
+export const INPUT_CLASSNAME = 'input';
