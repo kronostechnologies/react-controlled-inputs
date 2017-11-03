@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexPoirier1/react-input.git"
+    "url": "git+https://github.com/AlexPoirier1/react-controlled-inputs.git"
   },
   "keywords": [
     "react",
@@ -22,9 +22,9 @@
   "author": "Alexandre Poirier",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexPoirier1/react-input/issues"
+    "url": "https://github.com/AlexPoirier1/react-controlled-inputs/issues"
   },
-  "homepage": "https://github.com/AlexPoirier1/react-input#readme",
+  "homepage": "https://github.com/AlexPoirier1/react-controlled-inputs#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
