@@ -1,9 +1,9 @@
-const SyntheticEvent = value => ({
+const SyntheticEvent = event => ({
     target: {
-        id: window.event.target.id,
-        name: window.event.target.name,
-        checked: window.event.target.checked,
-        value
+        id: event.target.id,
+        name: event.target.name,
+        checked: event.target.checked,
+        value: event.target.value
     }
 });
 

@@ -46,7 +46,9 @@ describe('Inputs ::', () => {
     describe('Given any Input', () => {
         beforeEach(() => {
             txt_wrappper = mount(<Input value={VALID_TEXT_VALUE} onChange={dummyChange} />);
+            num_wrapper = mount(<CurrencyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} onChange={dummyChange} />);
             txt_input = txt_wrappper.find('input').node;
+            num_input = num_wrapper.find('input').node;
         });
 
         it('when focusing, should select the entire value', (done) => {
@@ -61,11 +63,16 @@ describe('Inputs ::', () => {
 
         it('when typing, should call the onChange passed as props', () => {
             const spy = sinon.spy();
+            const num_spy = sinon.spy();
             txt_wrappper.setProps({ onChange: spy });
+            num_wrapper.setProps({ onChange: num_spy });
             txt_wrappper.find('input').prop('onChange')({ target: { value: VALID_UNFORMATTED_NUMERIC_VALUE } });
+            num_wrapper.find('input').prop('onChange')({ target: { value: VALID_UNFORMATTED_NUMERIC_VALUE } });
 
             expect(spy.callCount).to.be.equal(1);
+            expect(num_spy.callCount).to.be.equal(1);
             expect(txt_wrappper.state('value')).to.be.equal(VALID_UNFORMATTED_NUMERIC_VALUE);
+            expect(num_wrapper.state('value')).to.be.equal(VALID_UNFORMATTED_NUMERIC_VALUE);
         });
 
         it('when focusing, should call the onFocus passed as props if specified', () => {
