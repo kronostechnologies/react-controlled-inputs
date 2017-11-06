@@ -1,5 +1,8 @@
+import _ from 'lodash';
+
 import Input from './input';
 import f from '../utils/formatter';
+import SyntheticEvent from '../utils/synthetic-event';
 import { NUMBER_INPUT_CLASSNAME } from '../utils/constants';
 
 class NumberInput extends Input {
@@ -13,15 +16,26 @@ class NumberInput extends Input {
         return this.formatter.formatNumber(value);
     }
 
+    parseValue(value) {
+        if(this._isGoingToBeDecimal(value)) {
+            return value;
+        }
+        return _.isNaN(parseFloat(value)) ? value : parseFloat(value);
+    }
+
     getInputClassName() {
         return NUMBER_INPUT_CLASSNAME;
     }
 
     onChange(e) {
-        if(e.target.value !== '') {
-            e.target.value = parseFloat(e.target.value);
+        if(e.target.value !== '' && !this._isGoingToBeDecimal(e.target.value)) {
+            super.onChange(SyntheticEvent(parseFloat(e.target.value)));
         }
         super.onChange(e);
+    }
+
+    _isGoingToBeDecimal(value) {
+        return _.endsWith(value, ',') || _.endsWith(value, '.');
     }
 }
 

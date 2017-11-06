@@ -1,8 +1,8 @@
-import Input from './input';
+import NumberInput from './number-input';
 import f from '../utils/formatter';
 import { PERCENTAGE_INPUT_CLASSNAME } from '../utils/constants';
 
-class PercentageInput extends Input {
+class PercentageInput extends NumberInput {
     constructor(props) {
         super(props);
         this.formatter = new f(props.locale.toUpperCase());

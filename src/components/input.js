@@ -12,7 +12,7 @@ class Input extends Component {
         super(props);
         this.state = {
             focused: false,
-            value: this._parseValue(props.value),
+            value: this.parseValue(props.value),
             failed_validations: [],
             last_submitted_value: 0
         };
@@ -37,24 +37,24 @@ class Input extends Component {
     componentWillReceiveProps(nextProps) {
         const nextState = {};
         if(nextProps.value !== this.props.value) {
-            nextState.value = this._parseValue(nextProps.value);
+            nextState.value = this.parseValue(nextProps.value);
         }
         this.setState(nextState);
     }
 
-    _parseValue(value) {
-        return _.isNaN(parseFloat(value)) ? value : parseFloat(value);
-    }
+_setFocusedFlag(bool) {
+    this.setState({
+        focused: bool
+    });
+}
 
-    _setFocusedFlag(bool) {
-        this.setState({
-            focused: bool
-        });
-    }
-
-    _getValueToDisplay = () => (this.state.focused
+_getValueToDisplay = () => (this.state.focused
     ? this.state.value
     : this.format(this.state.value));
+
+    parseValue(value) {
+        return value;
+    }
 
     format(value) {
         return this.formatter.noFormat(value);
