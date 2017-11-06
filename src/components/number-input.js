@@ -16,6 +16,13 @@ class NumberInput extends Input {
     getInputClassName() {
         return NUMBER_INPUT_CLASSNAME;
     }
+
+    onChange(e) {
+        if(e.target.value !== '') {
+            e.target.value = parseFloat(e.target.value);
+        }
+        super.onChange(e);
+    }
 }
 
 export default NumberInput;

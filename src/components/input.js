@@ -10,11 +10,11 @@ import {
 class Input extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             focused: false,
-            value: props.value,
-            failed_validations: []
+            value: this._parseValue(props.value),
+            failed_validations: [],
+            last_submitted_value: 0
         };
 
         this.formatter = new f(props.locale.toUpperCase());
@@ -34,27 +34,43 @@ class Input extends Component {
         locale: EN
     }
 
-    format(value) {
-        return this.formatter.noFormat(value);
+    componentWillReceiveProps(nextProps) {
+        const nextState = {};
+        if(nextProps.value !== this.props.value) {
+            nextState.value = this._parseValue(nextProps.value);
+        }
+        this.setState(nextState);
     }
 
-    getValueToDisplay = () => (this.state.focused
-    ? this.state.value
-    : this.format(this.state.value));
+    _parseValue(value) {
+        return _.isNaN(parseFloat(value)) ? value : parseFloat(value);
+    }
 
-    setFocusedFlag(bool) {
+    _setFocusedFlag(bool) {
         this.setState({
             focused: bool
         });
     }
 
+    _getValueToDisplay = () => (this.state.focused
+    ? this.state.value
+    : this.format(this.state.value));
+
+    format(value) {
+        return this.formatter.noFormat(value);
+    }
+
     onChange(e) {
-        this.setState({ value: e.target.value });
+        const nextState = { value: e.target.value };
+        if(!_.isNil(e.target.value)) {
+            nextState.last_submitted_value = e.target.value;
+        }
+        this.setState(nextState);
         this.props.onChange(e);
     }
 
     onFocus(e) {
-        this.setFocusedFlag(true);
+        this._setFocusedFlag(true);
         if(this.input &&
             this.input.setSelectionRange &&
             this.input.type !== 'number' // Chrome version > 33 throws error accessing selection on number inputs
@@ -70,7 +86,7 @@ class Input extends Component {
     }
 
     onBlur(e) {
-        this.setFocusedFlag(false);
+        this._setFocusedFlag(false);
         if(this.props.onBlur) {
             this.props.onBlur(e);
         }
@@ -96,7 +112,7 @@ class Input extends Component {
                 <input
                     {...props}
                     className={_.join([this.props.className, this.getInputClassName()], class_name_separator)}
-                    value={this.getValueToDisplay()}
+                    value={this._getValueToDisplay()}
                     onChange={this.onChange}
                     onFocus={this.onFocus}
                     onBlur={this.onBlur}

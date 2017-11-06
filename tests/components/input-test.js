@@ -131,7 +131,35 @@ describe('Inputs ::', () => {
         });
     });
 
-    describe('Given a Currency Input', () => {
+    describe('Given a Currency Input (also tests NumberInputs per heritage)', () => {
+        describe('(ANY) ', () => {
+            beforeEach(() => {
+                num_wrapper = mount(<CurrencyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} onChange={dummyChange} />);
+                num_input = num_wrapper.find('input').node;
+            });
+
+            it('when leading zeros are present, should remove them', () => {
+                num_wrapper.setProps({ value: '00012345' });
+
+                expect(num_input.value).to.be.equal('$12,345');
+            });
+
+            it('onChange should be called with the actual value as a number not a string', () => {
+                const spy = sinon.spy();
+                num_wrapper.setProps({ onChange: spy });
+
+                num_wrapper.find('input').simulate('change', { target: { value: '12345' } });
+
+                expect(spy.args[0][0].target.value).to.be.equal(12345);
+            });
+
+            it('when value is empty, should not try to parse the value', () => {
+                num_wrapper.setProps({ value: '' });
+
+                expect(num_input.value).to.be.equal('');
+            });
+        });
+
         describe('(EN), ', () => {
             beforeEach(() => {
                 num_wrapper = mount(<CurrencyInput value={VALID_UNFORMATTED_NUMERIC_VALUE} locale={EN} onChange={dummyChange} />);

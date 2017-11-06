@@ -34,6 +34,10 @@ class formatter {
     }
 
     formatCurrency(value, fixed_decimals = true) {
+        if(value === '' || _.isNil(value)) {
+            return '';
+        }
+
         const coated_value = this.formatNumber(value, fixed_decimals);
         switch(this.locale) {
             case FR:

@@ -1,8 +1,8 @@
-import Input from './input';
+import NumberInput from './number-input';
 import f from '../utils/formatter';
 import { CURRENCY_INPUT_CLASSNAME } from '../utils/constants';
 
-class CurrencyInput extends Input {
+class CurrencyInput extends NumberInput {
     constructor(props) {
         super(props);
         this.formatter = new f(props.locale.toUpperCase());
