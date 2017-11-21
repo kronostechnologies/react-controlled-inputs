@@ -28,7 +28,8 @@ class NumberInput extends Input {
     }
 
     onChange(e) {
-        if(e.target.value !== '' && !this._isGoingToBeDecimal(e.target.value)) {
+        e.target.value = e.target.value.replace(',', '.');
+        if(e.target.value !== '' && !this._isGoingToBeDecimal(e.target.value) && !_.isNaN(Number(e.target.value))) {
             const event = SyntheticEvent(e);
             event.target.value = parseFloat(e.target.value);
             super.onChange(event);
