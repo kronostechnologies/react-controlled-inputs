@@ -29,13 +29,11 @@ class NumberInput extends Input {
 
     onChange(e) {
         e.target.value = e.target.value.replace(',', '.');
+        const event = SyntheticEvent(e);
         if(e.target.value !== '' && !this._isGoingToBeDecimal(e.target.value) && !_.isNaN(Number(e.target.value))) {
-            const event = SyntheticEvent(e);
             event.target.value = parseFloat(e.target.value);
-            super.onChange(event);
-            return;
         }
-        super.onChange(e);
+        super.onChange(event);
     }
 
     _isGoingToBeDecimal(value) {
