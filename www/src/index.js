@@ -9,7 +9,7 @@ import {
     VALID_TEXT_VALUE
 } from '../../src/utils/constants';
 
-const DEFAULT_LOCALE = 'FR';
+const DEFAULT_LOCALE = formatter.getSupportedLocales().FR;
 
 class MasterComponent extends Component {
     constructor(props) {

@@ -7,7 +7,6 @@ Controlled react inputs with built-in formatting and auto-validations. Currently
 The inputs are set to behave more like Excel cells do. When an input is focused, it will initially select the entire range.
 
 ## TODOs
-* **First priority**: Styling API (since the inputs are pretty blend right now and without even a class to hook css)
 * Implement the ability to add validations to any input.
 * Implement more UI knobs to play around with the inputs in the playground (`./www`)
 * Add visual buttons on the right side of a number input (to mimic the actual `input type="text"`)
@@ -60,3 +59,22 @@ import { PercentageInput } from 'react-controlled-inputs';
 
 Any `className` or `id` passed as prop is forwarded to the input HTML element. In addition, the input will have the type of input as class in lower case separated by `-`.
 * ex: for a `CurrencyInput` the class `currency-input` will be added to the input element
+
+### Formatting
+
+To use the same formatter as used by the inputs elsewhere in your application (i.e. for a non-input numeric label):
+```js
+import { formatter } from 'react-controlled-inputs';
+
+class ExampleComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.f = new formatter(formatter.getSupportedLocales().EN);
+    }
+
+    changeLocale() {
+        this.f.locale = formatter.getSupportedLocales().FR;
+    }
+}
+```
