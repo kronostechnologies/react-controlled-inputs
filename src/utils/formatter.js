@@ -6,6 +6,8 @@ class formatter {
         this.locale = locale;
     }
 
+    static getSupportedLocales = () => ({ EN, FR });
+
     _frenchReplace = value => _.trim(value.replace('-', '').replace(',', '\u00A0').replace('.', ','), ',.');
     _englishReplace = value => _.trim(value.replace('-', '').replace(' ', ',').replace('\u00A0', ','), ',.');
     _isPositive = value => parseFloat((value + '').replace(',', '.')) >= 0;

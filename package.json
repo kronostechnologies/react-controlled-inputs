@@ -1,6 +1,6 @@
 {
   "name": "react-controlled-inputs",
-  "version": "1.2.2",
+  "version": "1.3.1",
   "description": "Controlled react inputs with built-in formatting and validations",
   "main": "dist/react-input.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexPoirier1/react-controlled-inputs.git"
+    "url": "git+https://github.com/kronostechnologies/react-controlled-inputs.git"
   },
   "keywords": [
     "react",
@@ -22,9 +22,9 @@
   "author": "Alexandre Poirier",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AlexPoirier1/react-controlled-inputs/issues"
+    "url": "https://github.com/kronostechnologies/react-controlled-inputs/issues"
   },
-  "homepage": "https://github.com/AlexPoirier1/react-controlled-inputs#readme",
+  "homepage": "https://github.com/kronostechnologies/react-controlled-inputs#readme",
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
